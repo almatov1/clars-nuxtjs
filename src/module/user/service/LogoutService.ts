@@ -14,5 +14,6 @@ export const LogoutService = async ({ request, accessToken }: { request?: boolea
     user.reset();
 
     navigateTo(ACCOUNT_ROUTE.AUTHENTICATION);
+    push.success("Вы успешно вышли из аккаунта")
     return;
 }

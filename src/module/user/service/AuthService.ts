@@ -11,5 +11,6 @@ export const AuthService = async (email: string, password: string) => {
         const accessTokenCookie = useCookie('accessToken', { maxAge: 7776000, sameSite: 'lax' });
         accessTokenCookie.value = result.accessToken;
         navigateTo(ACCOUNT_ROUTE.PROFILE);
+        push.success("Успешная авторизация")
     }
 }

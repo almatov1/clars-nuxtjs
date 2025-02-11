@@ -7,7 +7,7 @@
         <button class="absolute pt-[112px]">
           <img :src="EditIcon" />
         </button>
-        <div class="text-[20px] font-medium pt-[16px] text-black-500">Аскар Нурлан</div>
+        <div class="text-[20px] font-medium pt-[24px] text-black-500">Аскар Нурлан</div>
       </div>
       <form @submit.prevent="onDataSave"
         class="rounded-[8px] border-pale-500 border-[1px] p-[16px] flex flex-col gap-[16px]">
@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import ButtonComponent from "~/src/component/shared/ButtonComponent.vue";
-import UserIcon from "../../src/core/assets/image/home/user.svg?inline";
+import UserIcon from "../../src/core/assets/image/profile/user.svg?inline";
 import EditIcon from "../../src/core/assets/image/profile/edit.svg?inline";
 import InputComponent from "~/src/component/shared/InputComponent.vue";
 

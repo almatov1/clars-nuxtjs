@@ -27,10 +27,11 @@ import LockIcon from "../src/core/assets/image/auth/lock.svg?inline";
 import EyeHideIcon from "../src/core/assets/image/auth/eye-hide.svg?inline";
 import EyeShowIcon from "../src/core/assets/image/auth/eye-show.svg?inline";
 import { ACCOUNT_ROUTE } from '~/src/core/config/route';
+import { AuthService } from '~/src/module/user/service/AuthService';
 
 definePageMeta({
   layout: 'auth',
-  // middleware: ['public']
+  middleware: ['public']
 })
 const passwordHide = ref(true);
 const fields = reactive({
@@ -38,7 +39,7 @@ const fields = reactive({
   password: ''
 });
 const onAuth = async () => {
-
+  await AuthService(fields.email, fields.password);
 }
 </script>
 

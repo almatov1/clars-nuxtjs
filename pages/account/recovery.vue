@@ -11,8 +11,7 @@
       <div class="pb-[16px] text-black-400 font-normal text-16px">
         Мы отправили СМС с кодом подтверждения на вашу почту. Пожалуйста, введите данный код ниже.
       </div>
-      <InputComponent class="mb-[12px]" placeholder="Код подтверждения" required v-model.trim="otp" />
-      <TextButtonComponent class="pb-[32px]" placeholder="Не пришел код?" :onClick="resendCode" />
+      <InputComponent class="mb-[32px]" placeholder="Код подтверждения" required v-model.trim="otp" />
       <ButtonComponent type="submit" placeholder="Подтвердить" />
     </form>
     <form v-else @submit.prevent="onRecovery">
@@ -42,18 +41,15 @@ import LockIcon from "../src/core/assets/image/auth/lock.svg?inline";
 import EyeHideIcon from "../src/core/assets/image/auth/eye-hide.svg?inline";
 import EyeShowIcon from "../src/core/assets/image/auth/eye-show.svg?inline";
 import { ACCOUNT_ROUTE } from '~/src/core/config/route';
+import { RecoveryService } from '~/src/module/user/service/RecoveryService';
 
 definePageMeta({
   layout: 'auth',
-  // middleware: ['public']
+  middleware: ['public']
 })
 const stage = ref(0);
 const email = ref('');
-
 const otp = ref('');
-const resendCode = () => {
-
-}
 
 const fields = reactive({
   password: '',
@@ -63,8 +59,21 @@ const passwordHide = ref(true);
 const rePasswordHide = ref(true);
 
 const onRecovery = async () => {
-  if (stage.value === 2) navigateTo(ACCOUNT_ROUTE.AUTHENTICATION);
-  else stage.value++;
+  if ([0, 1].includes(stage.value)) {
+    const result = await RecoveryService(email.value, stage.value === 1 ? otp.value : undefined);
+    if (result) stage.value++;
+  } else {
+    if (fields.password !== fields.rePassword) {
+      push.error("Пароли не совпадают");
+      return;
+    }
+
+    const result = await RecoveryService(email.value, otp.value, fields.password);
+    if (result) {
+      push.success("Пароль успешно изменен");
+      navigateTo(ACCOUNT_ROUTE.AUTHENTICATION);
+    }
+  }
 }
 </script>
 

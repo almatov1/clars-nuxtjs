@@ -32,10 +32,11 @@ import LockIcon from "../src/core/assets/image/auth/lock.svg?inline";
 import EyeHideIcon from "../src/core/assets/image/auth/eye-hide.svg?inline";
 import EyeShowIcon from "../src/core/assets/image/auth/eye-show.svg?inline";
 import { ACCOUNT_ROUTE } from '~/src/core/config/route';
+import { RegService } from '~/src/module/user/service/RegService';
 
 definePageMeta({
   layout: 'auth',
-  // middleware: ['public']
+  middleware: ['public']
 })
 const passwordHide = ref(true);
 const rePasswordHide = ref(true);
@@ -46,7 +47,12 @@ const fields = reactive({
   rePassword: ''
 });
 const onReg = async () => {
+  if (fields.password !== fields.rePassword) {
+    push.error("Пароли не совпадают");
+    return;
+  }
 
+  await RegService(fields.email, fields.forename, fields.password);
 }
 </script>
 

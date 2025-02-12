@@ -75,6 +75,30 @@
             </button>
           </div>
         </div>
+        <div v-if="selectedMaster" class="flex flex-col gap-[12px]">
+          <div class="text-black-500">Услуги</div>
+          <div class="px-[16px] py-[8.5px] border-[1px] border-pale-500 rounded-[8px]">
+            <button type="button" @click="() => vfm.open(servicesModalController)"
+              v-if="company.data?.masterServices.filter(item => item.masterId === selectedMaster?.id).length === 0"
+              class="flex items-center gap-[8px]">
+              <img :src="AddIcon" />
+              <div class="text-black-500 font-medium">Добавить услугу</div>
+            </button>
+            <div v-else class="flex flex-wrap gap-[8px]">
+              <div
+                v-for="(item, index) in company.data?.masterServices.filter(item => item.masterId === selectedMaster?.id)"
+                :key="index" class="bg-pale-400 rounded-[8px] p-[8px] flex items-center">
+                <div class="text-black-500">Услуга</div>
+                <div class="pl-[4px] pr-[16px] text-black-500 font-medium uppercase truncate">{{
+                  company.data?.services.find(s =>
+                    s.id === item.serviceId)!.name }}</div>
+                <button type="button" @click="() => onMasterServiceDelete(item.serviceId)">
+                  <img :src="CloseIcon" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="flex justify-end gap-[12px]">
           <ButtonComponent v-if="selectedMaster" class="w-[102px]" placeholder="Удалить" type="button"
             :onClick="() => onDelete(selectedMaster?.id!)" bg="bg-red-400" />
@@ -82,6 +106,8 @@
         </div>
       </form>
     </ModalComponent>
+    <MasterServiceComponent :controller="servicesModalController" :onHide="() => vfm.close(servicesModalController)"
+      :onMasterServicesSave="onMasterServicesSave" />
   </div>
 </template>
 
@@ -102,6 +128,12 @@ import ButtonComponent from '~/src/component/shared/ButtonComponent.vue';
 import UserIcon from "../../src/core/assets/image/profile/user.svg?inline";
 import EditIcon from "../../src/core/assets/image/profile/edit.svg?inline";
 import FileInputComponent from '~/src/component/shared/FileInputComponent.vue';
+import CloseIcon from "../../src/core/assets/image/company/close.svg?inline";
+import AddIcon from "../../src/core/assets/image/company/add.svg?inline";
+import { AddMasterServiceService } from '~/src/module/master/service/AddMasterServiceService';
+import { ReloadCompanyService } from '~/src/module/company/service/ReloadCompanyService';
+import MasterServiceComponent from '~/src/component/company/MasterServiceComponent.vue';
+import { DeleteMasterServiceService } from '~/src/module/master/service/DeleteMasterServiceService';
 definePageMeta({
   layout: 'default',
   middleware: ['private', 'company']
@@ -157,7 +189,27 @@ const onDelete = async (id: number) => {
   vfm.close(modalController);
 }
 
-// WINDOW
+// MASTERSERVICE
+const servicesModalController = Symbol('masterServicesModal');
+const onMasterServicesSave = async (serviceIds: number[]) => {
+  if (!selectedMaster.value) return;
+  if (serviceIds.length === 0) {
+    push.error("Выберите услуги");
+    return;
+  }
+
+  for (const id of serviceIds) { await AddMasterServiceService(selectedMaster.value.id, id) }
+  await ReloadCompanyService();
+  push.success("Связки успешно созданы");
+  selectedMaster.value = company.data?.masters.find(item => item.id === selectedMaster.value?.id)!;
+  vfm.close(servicesModalController);
+}
+const onMasterServiceDelete = async (serviceId: number) => {
+  if (!selectedMaster.value) return;
+  await DeleteMasterServiceService(selectedMaster.value.id, serviceId);
+}
+
+// MASTER WINDOW
 const vfm = useVfm();
 const modalController = Symbol('masterModal');
 </script>

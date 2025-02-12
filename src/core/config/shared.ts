@@ -18,7 +18,7 @@ export const IMAGE_CONFIG = {
 
 export const GENDERS = ['Муж', 'Жен'];
 
-export const CATEGORIES = ["Барбершоп", "Ногтевой сервис", "Макияж", "Косметология", "Брови", "Ресницы"];
+export const CATEGORIES = ["Парикмахерские услуги", "Ногтевой сервис", "Уход за телом", "Макияж", "Удаление волос", "Косметология", "Тату и пирсинг", "Брови", "Ресницы"];
 
 export const TIMES = Array.from({ length: 24 }, (_, i) =>
     `${String(i).padStart(2, '0')}:00`
@@ -45,4 +45,6 @@ export const REGIONS = [
     "Астана",
     "Алматы",
     "Шымкент"
-];  
+];
+
+export const ORDER_BY_LIST = ['Рекомендуемые', 'Популярные', 'Новые'];

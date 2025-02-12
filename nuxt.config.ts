@@ -45,6 +45,7 @@ export default defineNuxtConfig({
     'notivue/notification.css',
     'notivue/animations.css',
     'vue-final-modal/style.css',
+    'photoswipe/dist/photoswipe.css',
     '~/src/core/assets/css/default.css'
   ]
 })

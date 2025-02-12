@@ -10,10 +10,10 @@ export const COMPANY_ROUTE = {
     CABINET: "/company/cabinet",
     DATA: "/company/data",
     SERVICE: "/company/service",
-    MASTER: "/company/master"
+    MASTER: "/company/master",
+    COMPANY: "/company/"
 };
 
 export const DEFAULT_ROUTE = {
-    HOME: "/",
-    ERROR: "/404"
+    HOME: "/"
 };

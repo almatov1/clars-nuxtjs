@@ -22,14 +22,16 @@
       </div>
       <div class="text-black-500">Всего: {{ (catalog.meta?.total ?? 0).toString() }}</div>
     </div>
-    <div class="grid grid-cols-4 gap-[24px] mt-[24px]">
-      <button @click="() => null" v-for="(item, index) in catalog.data" :key="index" class="flex flex-col items-start">
+    <div class="grid grid-cols-4 gap-[24px] my-[24px]">
+      <button @click="() => navigateTo(`${COMPANY_ROUTE.COMPANY}${item.id}`)" v-for="(item, index) in catalog.data"
+        :key="index" class="flex flex-col items-start">
         <div :style="{ backgroundImage: `url(${STORAGE}/${item.intros[0].picture})` }"
           class="w-[100%] aspect-square rounded-[8px] bg-cover bg-center"></div>
         <div class="pt-[12px] uppercase font-medium text-black-500">{{ item.name }}</div>
         <div class="text-[14px] text-black-400">{{ item.description }}</div>
       </button>
     </div>
+    <LoadMoreComponent v-if="catalog.meta?.next" :onLoadMore="onLoadMore" />
   </div>
 </template>
 
@@ -42,6 +44,8 @@ import { useCatalogSearchStore } from '~/src/module/catalog/store/catalogSearch'
 import { useCatalogStore } from '~/src/module/catalog/store/catalog';
 import SelectComponent from '~/src/component/shared/SelectComponent.vue';
 import SortIcon from '~/src/core/assets/image/home/sort.svg?inline';
+import { COMPANY_ROUTE } from '~/src/core/config/route';
+import LoadMoreComponent from '~/src/component/shared/LoadMoreComponent.vue';
 definePageMeta({
   layout: 'default'
 })
@@ -71,6 +75,12 @@ watch(() => orderBy.value, (value) => {
   catalog.get();
 });
 const icons = [HairbrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon];
+
+// LOAD MORE
+const onLoadMore = async () => {
+  catalogSearch.setPage((catalogSearch.data?.page ?? 1) + 1);
+  await catalog.get(true);
+}
 </script>
 
 <style></style>

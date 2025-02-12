@@ -8,7 +8,7 @@
                 <div class="text-black-500 w-[273px] text-center">Выберите изображения для загрузки (PNG, JPG)</div>
             </div>
         </FileInputComponent>
-        <div v-if="company.data?.intros.length ?? 0 > 0" class="grid gap-[8px]">
+        <div v-if="company.data?.intros.length ?? 0 > 0" class="flex flex-wrap gap-[8px]">
             <div v-for="(item, index) in company.data?.intros" :key="index" class="relative w-[72px] h-[72px]">
                 <img :src="`${STORAGE}/${item.picture}`" width="72" height="72" class="rounded-[8px]" />
                 <button @click="() => onDelete(item.id)" class="absolute top-0 right-0 p-[4px]">

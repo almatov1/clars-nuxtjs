@@ -10,7 +10,9 @@
             <img :src="EditIcon" />
           </FileInputComponent>
         </div>
-        <div class="text-[20px] font-medium pt-[24px] text-black-500">Аскар Нурлан</div>
+        <div class="text-[20px] font-medium pt-[24px] text-black-500">
+          {{ user.data?.forename }}{{ user.data?.surname ? ` ${user.data.surname}` : '' }}
+        </div>
       </div>
       <form @submit.prevent="onDataSave"
         class="rounded-[8px] border-pale-500 border-[1px] p-[16px] flex flex-col gap-[16px]">
@@ -60,7 +62,7 @@ import FileInputComponent from "~/src/component/shared/FileInputComponent.vue";
 import { PatchDataService } from "~/src/module/user/service/PatchDataService";
 import { useUserStore } from "~/src/module/user/store/user";
 import { PatchPictureService } from "~/src/module/user/service/PatchPictureService";
-import { STORAGE } from "~/src/core/config/shared"
+import { STORAGE } from "~/src/core/config/shared";
 definePageMeta({
   layout: 'default',
   middleware: ['private']

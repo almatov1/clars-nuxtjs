@@ -5,6 +5,7 @@ export const MAIN_COLOR = {
     DARK_PALE: "#D1CFEB",
     BLUE: "#6157FF",
     RED: "#F31E56",
+    GREEN: "#1CD44C",
     LIGHT_BLACK: "#74737C",
     DARK_BLACK: "#212025",
     BLACK: "#000000"

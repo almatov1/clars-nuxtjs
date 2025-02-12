@@ -28,6 +28,9 @@ export default {
         red: {
           400: MAIN_COLOR.RED
         },
+        green: {
+          400: MAIN_COLOR.GREEN
+        },
         black: {
           400: MAIN_COLOR.LIGHT_BLACK,
           500: MAIN_COLOR.DARK_BLACK,

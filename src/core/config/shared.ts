@@ -16,6 +16,8 @@ export const IMAGE_CONFIG = {
     MAX_SIZE_IN_TEXT: "10 MB"
 };
 
+export const GENDERS = ['Муж', 'Жен'];
+
 export const CATEGORIES = ["Барбершоп", "Ногтевой сервис", "Макияж", "Косметология", "Брови", "Ресницы"];
 
 export const TIMES = Array.from({ length: 24 }, (_, i) =>

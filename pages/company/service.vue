@@ -38,7 +38,8 @@
       </div>
     </div>
 
-    <ModalComponent :modal-id="modalController" @on-hide="() => vfm.close(modalController)" title="Добавить услугу">
+    <ModalComponent :modal-id="modalController" @on-hide="() => vfm.close(modalController)"
+      :title="selectedService ? 'Редактировать услугу' : 'Добавить услугу'">
       <form @submit.prevent="onSave" class="flex flex-col gap-[24px]">
         <div class="flex flex-col gap-[12px]">
           <div class="text-black-500">Название услуги</div>
@@ -74,6 +75,8 @@ definePageMeta({
   middleware: ['private', 'company']
 })
 const company = useCompanyStore();
+
+// DATA
 const selectedService = ref<ServiceModel | null>(null);
 const fields = reactive({
   name: '',

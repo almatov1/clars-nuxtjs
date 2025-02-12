@@ -1,6 +1,7 @@
 <template>
     <VueFinalModal class="flex justify-center items-center"
-        content-class="bg-white-400 rounded-[8px] overflow-auto w-[655px]" content-transition="vfm-fade">
+        content-class="bg-white-400 rounded-[8px] overflow-auto w-[655px] overflow-auto max-h-[90%]"
+        content-transition="vfm-fade">
         <div class="flex justify-between items-center p-[24px]">
             <div class="text-black-500 text-[20px] font-medium">
                 {{ title }}

@@ -39,7 +39,7 @@
         <div class="flex flex-col gap-[12px]">
           <div class="text-black-500">Пол</div>
           <div class="flex gap-[8px]">
-            <button v-for="(item, index) in genders" :key="index" type="button" @click="gender = item"
+            <button v-for="(item, index) in GENDERS" :key="index" type="button" @click="gender = item"
               :class="['px-[24px] h-[36px] rounded-[8px]', gender === item ? 'bg-blue-400 text-white-950' : 'text-black-500 border-pale-500 border-[1px]']">
               {{ item }}
             </button>
@@ -62,7 +62,8 @@ import FileInputComponent from "~/src/component/shared/FileInputComponent.vue";
 import { PatchDataService } from "~/src/module/user/service/PatchDataService";
 import { useUserStore } from "~/src/module/user/store/user";
 import { PatchPictureService } from "~/src/module/user/service/PatchPictureService";
-import { STORAGE } from "~/src/core/config/shared";
+import { STORAGE, GENDERS } from "~/src/core/config/shared";
+import execTelephoneMask from "~/src/core/util/telephoneMask";
 definePageMeta({
   layout: 'default',
   middleware: ['private']
@@ -77,12 +78,11 @@ const onPictureChange = async (files: FileList) => {
 // DATA
 const fields = reactive({
   email: user.data?.email ?? '',
-  telephone: user.data?.telephone ?? '',
+  telephone: user.data?.telephone ? execTelephoneMask(user.data.telephone) : '',
   forename: user.data?.forename ?? '',
   surname: user.data?.surname ?? ''
 });
-const genders = ['Муж', 'Жен'];
-const gender = ref(user.data?.gender ?? genders[0]);
+const gender = ref(user.data?.gender ?? GENDERS[0]);
 const onDataSave = async () => {
   await PatchDataService(fields.email, fields.telephone.replace(/\D/g, ''), fields.forename, fields.surname, gender.value);
 }

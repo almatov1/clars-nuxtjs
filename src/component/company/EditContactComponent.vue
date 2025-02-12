@@ -34,12 +34,13 @@ import InputComponent from '../shared/InputComponent.vue';
 import ButtonComponent from '../shared/ButtonComponent.vue';
 import { useCompanyStore } from '~/src/module/company/store/company';
 import { CompanyContactService } from '~/src/module/company/service/CompanyContactService';
+import execTelephoneMask from '~/src/core/util/telephoneMask';
 
 const company = useCompanyStore();
 const contact = reactive({
-    telephone: company.data?.telephone ?? '',
+    telephone: company.data?.telephone ? execTelephoneMask(company.data.telephone) : '',
     email: company.data?.email ?? '',
-    whatsapp: company.data?.whatsapp ?? '',
+    whatsapp: company.data?.whatsapp ? execTelephoneMask(company.data.whatsapp) : '',
     instagram: company.data?.instagram ?? ''
 });
 const onContactSave = async () => {

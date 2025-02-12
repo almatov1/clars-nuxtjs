@@ -2,7 +2,7 @@
   <div>
     <div class="text-[32px] font-medium pb-[16px]">Личный кабинет</div>
     <div class="grid grid-cols-[411px_auto] gap-[16px] items-start">
-      <div class="w-[411px] rounded-[8px] border-pale-500 border-[1px] flex flex-col items-center py-[16px]">
+      <div class="rounded-[8px] border-pale-500 border-[1px] flex flex-col items-center py-[16px]">
         <img :src="user.data?.picture ? `${STORAGE}/${user.data.picture}` : UserIcon" width="128"
           class="rounded-full" />
         <div class="absolute pt-[112px]">

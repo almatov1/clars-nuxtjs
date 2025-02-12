@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="app">
-    <div class="bg-white-400 min-h-screen">
+    <div class="bg-white-400 min-h-screen pb-[50px]">
       <HeaderComponent />
       <div class="max-w-[1440px] mx-auto px-[80px]">
         <NuxtPage />

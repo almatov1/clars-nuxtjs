@@ -22,7 +22,7 @@
                 <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95"
                     enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75"
                     leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-                    <div v-if="isOpen"
+                    <div ref="target" v-if="isOpen"
                         :class="['absolute z-10 w-[241px] bg-white-400 shadow-[0px_0px_23.7px_0px_rgba(0,0,0,0.25)] rounded-[8px] py-[4px]', user.data ? 'mt-[230px] ml-[-77px]' : 'mt-[150px] ml-[-3px]']">
                         <button v-for="(item, index) in (user.data?.id ? privateItems : publicItems)" :key="index"
                             @click="item.onClick"
@@ -46,8 +46,11 @@ import { ACCOUNT_ROUTE, COMPANY_ROUTE, DEFAULT_ROUTE, ORDER_ROUTE } from "~/src/
 import { LogoutService } from "~/src/module/user/service/LogoutService";
 import { useUserStore } from "~/src/module/user/store/user";
 import { useCompanyStore } from "~/src/module/company/store/company";
+import { onClickOutside } from '@vueuse/core'
+const target = ref(null);
 const user = useUserStore();
 const company = useCompanyStore();
+onClickOutside(target, (event) => isOpen.value = false);
 
 // MENU
 const isOpen = ref(false);
@@ -96,6 +99,9 @@ const publicItems = [
         }, isRed: true
     }
 ];
+
+// OUTSIDE
+
 </script>
 
 <style scoped></style>

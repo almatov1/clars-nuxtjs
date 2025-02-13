@@ -34,7 +34,7 @@
                     <img :src="CallIcon" class="mb-[2px]" />
                 </ButtonComponent>
             </div>
-            <ButtonComponent :onClick="() => null" placeholder="Записаться" />
+            <ButtonComponent :onClick="onOrder" placeholder="Записаться" />
         </div>
     </div>
 </template>
@@ -54,6 +54,10 @@ const onCall = () => { window.location.href = `tel:${props.company?.telephone}` 
 const onMail = () => { window.location.href = `mailto:${props.company?.email}` }
 const onWhatsapp = () => { window.open(`https://wa.me/${props.company?.whatsapp}`, '_blank') }
 const onInsta = () => { window.open(`https://instagram.com/${props.company?.instagram}`, '_blank') }
+const onOrder = () => {
+    const target = document.getElementById('orderTarget');
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 </script>
 
 <style scoped></style>

@@ -4,10 +4,10 @@
       <div class="text-black-400">Главная / {{ company?.category }} / </div>
       <div class="text-black-500 uppercase">{{ company?.name }}</div>
     </div>
-    <div class="grid grid-cols-[auto_auto] gap-[24px] items-start">
+    <div class="grid grid-cols-[1fr_1fr] gap-[24px] items-start">
       <div class="flex flex-col gap-[32px]">
         <CompanyIntroComponent :company="company!" />
-        <CompanyBlockComponent />
+        <CompanyBlockComponent :company="company!" />
       </div>
       <CompanyInfoComponent :company="company!" />
     </div>

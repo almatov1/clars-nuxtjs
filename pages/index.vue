@@ -28,7 +28,7 @@
         <div :style="{ backgroundImage: `url(${STORAGE}/${item.intros[0].picture})` }"
           class="w-[100%] aspect-square rounded-[8px] bg-cover bg-center"></div>
         <div class="pt-[12px] uppercase font-medium text-black-500">{{ item.name }}</div>
-        <div class="text-[14px] text-black-400">{{ item.description }}</div>
+        <div class="text-[14px] text-black-400">{{ item.address }}</div>
       </button>
     </div>
     <LoadMoreComponent v-if="catalog.meta?.next" :onLoadMore="onLoadMore" />

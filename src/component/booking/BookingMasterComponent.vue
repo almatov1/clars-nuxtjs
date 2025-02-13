@@ -20,6 +20,7 @@
             </button>
         </div>
     </div>
+    <div v-else>Специалисты не найдены</div>
 </template>
 
 <script setup lang="ts">
@@ -50,7 +51,7 @@ const onMaster = (masterId: number) => {
 }
 
 // INIT
-if (!booking.data?.masterId && availableMasters) onRandom();
+if (!booking.data?.masterId && availableMasters && availableMasters.length > 0) onRandom();
 </script>
 
 <style scoped></style>

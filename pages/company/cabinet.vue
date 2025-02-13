@@ -25,6 +25,7 @@ definePageMeta({
 const company = useCompanyStore();
 const items = [
   { title: company.data?.name, value: company.data?.description, icon: true, onClick: () => navigateTo(COMPANY_ROUTE.DATA) },
+  { title: "Записи", value: `Текущие / История`, icon: false, onClick: () => navigateTo(COMPANY_ROUTE.ORDER) },
   { title: "Услуги", value: `Доступно: ${company.data?.services.length}`, icon: false, onClick: () => navigateTo(COMPANY_ROUTE.SERVICE) },
   { title: "Специалисты", value: `Доступно: ${company.data?.masters.length}`, icon: false, onClick: () => navigateTo(COMPANY_ROUTE.MASTER) }
 ];

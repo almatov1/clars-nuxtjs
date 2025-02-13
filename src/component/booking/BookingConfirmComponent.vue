@@ -30,7 +30,7 @@ const info = [
             month: "long",
         })}`
     },
-    { label: "Длителность", value: "1 час" },
+    { label: "Длительность", value: "1 час" },
     { label: "Цена", value: execPriceMask((service?.price ?? 0).toString()) },
     { label: "Адрес", value: booking.data?.company?.address }
 ];

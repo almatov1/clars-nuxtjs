@@ -31,7 +31,7 @@ export const useBookingStore = defineStore('booking', {
       if (!this.data) { this.data = { time } }
       else { this.data.time = time }
     },
-    setNote(note: string) {
+    setNote(note: string | undefined) {
       if (!this.data) { this.data = { note } }
       else { this.data.note = note }
     },

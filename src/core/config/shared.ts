@@ -48,3 +48,8 @@ export const REGIONS = [
 ];
 
 export const ORDER_BY_LIST = ['Рекомендуемые', 'Популярные', 'Новые'];
+
+export const ORDER_STATUS = {
+    ACTIVE: "ACTIVE",
+    CANCELLED: "CANCELLED"
+};

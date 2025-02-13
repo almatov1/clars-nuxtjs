@@ -9,13 +9,14 @@
 import { useBookingStore } from '~/src/module/booking/store/booking';
 import ButtonComponent from '../shared/ButtonComponent.vue';
 import { ORDER_ROUTE } from '~/src/core/config/route';
+import { BookingService } from '~/src/module/booking/service/BookingService';
 const props = defineProps<{
     stages: string[];
     stage: string;
     endStage: string;
 }>();
 const booking = useBookingStore();
-const onNext = () => {
+const onNext = async () => {
     switch (props.stage) {
         case props.stages[0]:
             if (!booking.data?.masterId) {
@@ -34,7 +35,8 @@ const onNext = () => {
             navigateTo(`${ORDER_ROUTE.BOOKING}?stage=${props.stages[2]}`)
             return;
         default:
-            navigateTo(`${ORDER_ROUTE.BOOKING}?stage=${props.endStage}`)
+            const result = await BookingService(booking.data?.company?.id!, booking.data?.serviceId!, booking.data?.masterId!, booking.data?.date!, booking.data?.time!, booking.data?.note);
+            if (result) navigateTo(`${ORDER_ROUTE.BOOKING}?stage=${props.endStage}`);
             return;
     }
 }

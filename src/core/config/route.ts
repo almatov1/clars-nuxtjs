@@ -16,6 +16,7 @@ export const COMPANY_ROUTE = {
     DATA: "/company/data",
     SERVICE: "/company/service",
     MASTER: "/company/master",
+    ORDER: "/company/order",
     COMPANY: "/company/"
 };
 

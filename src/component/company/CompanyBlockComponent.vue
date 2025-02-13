@@ -8,7 +8,7 @@
         </div>
         <div class="text-[32px] font-medium text-black-500">{{ tab }}</div>
         <div v-if="tab === items[0]" class="flex flex-col gap-[12px]">
-            <button @click="() => null" v-for="(item, index) in company.services" :key="index"
+            <button v-for="(item, index) in company.services" :key="index" @click="() => onBooking(item.id)"
                 class="px-[12px] h-[48px] border-[1px] border-pale-500 flex items-center justify-between rounded-[8px]">
                 <div class="text-black-500 font-medium">
                     {{ item.name }} - {{ execPriceMask(item.price.toString()) }}
@@ -36,11 +36,29 @@ import ArrowRight from '~/src/core/assets/image/company/arrow-right.svg?inline';
 import execPriceMask from '~/src/core/util/priceMask';
 import { STORAGE } from "~/src/core/config/shared";
 import CompanyWorkComponent from './CompanyWorkComponent.vue';
-defineProps<{
+import { useBookingStore } from '~/src/module/booking/store/booking';
+import { useUserStore } from '~/src/module/user/store/user';
+import { ACCOUNT_ROUTE, ORDER_ROUTE } from '~/src/core/config/route';
+const props = defineProps<{
     company: CompanyModel;
 }>();
 const items = ['Услуги', 'Мастера', 'Работы'];
 const tab = ref(items[0]);
+
+const user = useUserStore();
+const booking = useBookingStore();
+const onBooking = (serviceId: number) => {
+    if (!user.data) {
+        push.error("Вы не авторизованы");
+        navigateTo(ACCOUNT_ROUTE.AUTHENTICATION);
+        return;
+    }
+
+    booking.reset();
+    booking.setCompany(props.company);
+    booking.setServiceId(serviceId);
+    navigateTo(ORDER_ROUTE.BOOKING);
+}
 </script>
 
 <style scoped></style>

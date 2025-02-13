@@ -5,6 +5,11 @@ export const ACCOUNT_ROUTE = {
     PROFILE: "/account/profile"
 };
 
+export const ORDER_ROUTE = {
+    BOOKING: "/order/booking",
+    LIST: "/order/list"
+};
+
 export const COMPANY_ROUTE = {
     CREATE: "/company/create",
     CABINET: "/company/cabinet",

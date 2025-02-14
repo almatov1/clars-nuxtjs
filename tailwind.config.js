@@ -15,6 +15,7 @@ export default {
     extend: {
       colors: {
         white: {
+          200: MAIN_COLOR.OPACITY_WHITE,
           400: MAIN_COLOR.LIGHT_WHITE,
           950: MAIN_COLOR.WHITE
         },

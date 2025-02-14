@@ -4,6 +4,9 @@ import { useCompanyStore } from "../../company/store/company";
 import { useBookingStore } from "../../booking/store/booking";
 import { useOrderStore } from "../../order/store/order";
 import { useOrderSearchStore } from "../../order/store/orderSearch";
+import { useCertificateStore } from "../../certificate/store/certificate";
+import { useCompanyOrderStore } from "../../companyOrder/store/companyOrder";
+import { useCompanyOrderSearchStore } from "../../companyOrder/store/companyOrderSearch";
 
 export const LogoutService = async ({ request, accessToken }: { request?: boolean; accessToken?: string }) => {
     const user = useUserStore();
@@ -11,6 +14,9 @@ export const LogoutService = async ({ request, accessToken }: { request?: boolea
     const booking = useBookingStore();
     const order = useOrderStore();
     const orderSearch = useOrderSearchStore();
+    const certificate = useCertificateStore();
+    const companyOrder = useCompanyOrderStore();
+    const companyOrderSearch = useCompanyOrderSearchStore();
 
     if (request && accessToken) await useApi({
         method: "DELETE",
@@ -24,6 +30,9 @@ export const LogoutService = async ({ request, accessToken }: { request?: boolea
     booking.reset();
     order.reset();
     orderSearch.reset();
+    certificate.reset();
+    companyOrder.reset();
+    companyOrderSearch.reset();
 
     navigateTo(ACCOUNT_ROUTE.AUTHENTICATION);
     push.success("Вы успешно вышли из аккаунта")

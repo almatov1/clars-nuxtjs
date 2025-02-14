@@ -26,9 +26,18 @@
           <div class="h-[1px] bg-pale-500"></div>
           <div class="bg-pale-400 p-[10px] rounded-[8px] flex flex-col gap-[10px]">
             <div class="flex items-center justify-between">
-              <div class="text-[14px] text-black-500">Салон</div>
+              <div class="text-[14px] text-black-500">Клиент</div>
               <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-              <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.company.name }}</div>
+              <div class="text-[14px] text-black-400 flex-shrink-0">
+                {{ item.client.forename }}{{ item.client.surname ? ` ${item.client.surname}` : '' }}
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="text-[14px] text-black-500">Телефон</div>
+              <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
+              <div class="text-[14px] text-black-400 flex-shrink-0">
+                {{ item.client.telephone ? execTelephoneMask(item.client.telephone) : 'Нет' }}
+              </div>
             </div>
             <div class="flex items-center justify-between">
               <div class="text-[14px] text-black-500">Услуга</div>
@@ -62,11 +71,6 @@
               </div>
             </div>
             <div class="flex items-center justify-between">
-              <div class="text-[14px] text-black-500">Адрес</div>
-              <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-              <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.company.address }}</div>
-            </div>
-            <div class="flex items-center justify-between">
               <div class="text-[14px] text-black-500">Комментарий</div>
               <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
               <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.note ?? 'Нет' }}</div>
@@ -87,6 +91,7 @@ import ButtonComponent from '~/src/component/shared/ButtonComponent.vue';
 import LoadMoreComponent from '~/src/component/shared/LoadMoreComponent.vue';
 import { ORDER_STATUS } from '~/src/core/config/shared';
 import execPriceMask from '~/src/core/util/priceMask';
+import execTelephoneMask from '~/src/core/util/telephoneMask';
 import { CancelCompanyOrderService } from '~/src/module/companyOrder/service/CancelCompanyOrderService';
 import { useCompanyOrderStore } from '~/src/module/companyOrder/store/companyOrder';
 import { useCompanyOrderSearchStore } from '~/src/module/companyOrder/store/companyOrderSearch';

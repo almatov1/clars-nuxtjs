@@ -1,6 +1,7 @@
 export const MAIN_COLOR = {
     WHITE: "#FFFFFF",
     LIGHT_WHITE: "#F7F7FF",
+    OPACITY_WHITE: "rgba(247, 247, 255, 0.8)",
     PALE: "#EFEEFF",
     DARK_PALE: "#D1CFEB",
     BLUE: "#6157FF",

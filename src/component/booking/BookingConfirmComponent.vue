@@ -31,7 +31,15 @@ const info = [
         })}`
     },
     { label: "Длительность", value: "1 час" },
-    { label: "Цена", value: execPriceMask((service?.price ?? 0).toString()) },
+    {
+        label: "Цена", value: service
+            ? booking.data?.certificate
+                ? execPriceMask((
+                    service.price - (service.price * (booking.data.certificate.procent / 100))
+                ).toString())
+                : execPriceMask(service.price.toString())
+            : '0'
+    },
     { label: "Адрес", value: booking.data?.company?.address }
 ];
 </script>

@@ -6,7 +6,7 @@
       <div class="p-[24px] border-[1px] border-pale-500 rounded-[8px]">
         <div v-if="stages.includes(stage)" class="flex flex-col gap-[32px]">
           <BookingProgressComponent :stages="stages" :stage="stage" />
-          <BookingServiceComponent v-if="[stages[0], stages[1]].includes(stage)" :booking="booking.data" />
+          <BookingServiceComponent v-if="[stages[0], stages[1]].includes(stage)" />
           <BookingMasterComponent v-if="stage === stages[0]" />
           <BookingDateComponent v-if="stage === stages[1]" />
           <BookingConfirmComponent v-if="stage === stages[2]" />

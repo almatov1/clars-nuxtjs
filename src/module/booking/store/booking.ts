@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import type { BookingState } from '../model/BookingModel';
 import type { CompanyModel } from '../../company/model/CompanyModel';
+import type { CertificateModel } from '../../certificate/model/CertificateModel';
 
 export const useBookingStore = defineStore('booking', {
   state: (): BookingState => ({
@@ -34,6 +35,10 @@ export const useBookingStore = defineStore('booking', {
     setNote(note: string | undefined) {
       if (!this.data) { this.data = { note } }
       else { this.data.note = note }
+    },
+    setCertificate(certificate: CertificateModel) {
+      if (!this.data) { this.data = { certificate } }
+      else { this.data.certificate = certificate }
     },
     reset() { this.data = null }
   }

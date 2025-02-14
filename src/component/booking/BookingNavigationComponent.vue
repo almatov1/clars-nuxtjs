@@ -10,6 +10,9 @@ import { useBookingStore } from '~/src/module/booking/store/booking';
 import ButtonComponent from '../shared/ButtonComponent.vue';
 import { ORDER_ROUTE } from '~/src/core/config/route';
 import { BookingService } from '~/src/module/booking/service/BookingService';
+import { useOrderStore } from '~/src/module/order/store/order';
+import { useOrderSearchStore } from '~/src/module/order/store/orderSearch';
+import { ReloadCompanyService } from '~/src/module/company/service/ReloadCompanyService';
 const props = defineProps<{
     stages: string[];
     stage: string;
@@ -35,8 +38,23 @@ const onNext = async () => {
             navigateTo(`${ORDER_ROUTE.BOOKING}?stage=${props.stages[2]}`)
             return;
         default:
-            const result = await BookingService(booking.data?.company?.id!, booking.data?.serviceId!, booking.data?.masterId!, booking.data?.date!, booking.data?.time!, booking.data?.note);
-            if (result) navigateTo(`${ORDER_ROUTE.BOOKING}?stage=${props.endStage}`);
+            const result = await BookingService({
+                companyId: booking.data?.company?.id!,
+                serviceId: booking.data?.serviceId!,
+                masterId: booking.data?.masterId!,
+                date: booking.data?.date!,
+                time: booking.data?.time!,
+                note: booking.data?.note,
+                certificateId: booking.data?.certificate?.id
+            });
+            if (result) {
+                await ReloadCompanyService();
+                const order = useOrderStore();
+                const orderSearch = useOrderSearchStore();
+                order.reset();
+                orderSearch.reset();
+                navigateTo(`${ORDER_ROUTE.BOOKING}?stage=${props.endStage}`);
+            }
             return;
     }
 }

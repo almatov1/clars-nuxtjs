@@ -1,3 +1,4 @@
+import type { CertificateModel } from "../../certificate/model/CertificateModel"
 import type { CompanyModel } from "../../company/model/CompanyModel"
 
 export interface BookingState {
@@ -12,4 +13,5 @@ export interface BookingModel {
     times?: string[]
     time?: string
     note?: string
+    certificate?: CertificateModel
 };

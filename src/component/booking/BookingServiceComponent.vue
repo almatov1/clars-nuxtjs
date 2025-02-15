@@ -35,7 +35,7 @@
                     </button>
                 </div>
                 <div class="flex justify-end">
-                    <ButtonComponent class="w-[102px]" placeholder="Выбрать"
+                    <ButtonComponent class="w-[102px]" placeholder="Подтвердить"
                         :onClick="() => vfm.close(modalController)" />
                 </div>
             </div>

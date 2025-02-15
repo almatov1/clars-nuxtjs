@@ -9,7 +9,9 @@
         <CompanyIntroComponent :company="company!" />
         <CompanyBlockComponent :company="company!" />
       </div>
-      <CompanyInfoComponent :company="company!" />
+      <div class=" sticky top-4">
+        <CompanyInfoComponent :company="company!" />
+      </div>
     </div>
   </div>
 </template>

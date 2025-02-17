@@ -4,14 +4,18 @@
             <button @click="() => navigateTo(DEFAULT_ROUTE.HOME)">
                 <img :src="Logotype" />
             </button>
-            <div class="flex items-center gap-[16px]">
-                <button v-if="!company.data" @click="() => navigateTo(COMPANY_ROUTE.CREATE)"
-                    class="flex items-center gap-[8px] bg-red-400 h-[32px] px-[12px] rounded-[8px]">
+            <div ref="target" class="flex items-center gap-[16px]">
+                <button v-if="!company.data" @click="() => {
+                    navigateTo(COMPANY_ROUTE.CREATE);
+                    isOpen = false;
+                }" class="flex items-center gap-[8px] bg-red-400 h-[32px] px-[12px] rounded-[8px]">
                     <img :src="PlusIcon" />
                     <div class="font-medium text-[16px] text-white-950">Создать бизнес</div>
                 </button>
-                <button v-else @click="() => navigateTo(COMPANY_ROUTE.CABINET)"
-                    class="text-[16px] font-normal text-black-500">
+                <button v-else @click="() => {
+                    navigateTo(COMPANY_ROUTE.CABINET);
+                    isOpen = false;
+                }" class="text-[16px] font-normal text-black-500">
                     Мой бизнес
                 </button>
                 <button @click="isOpen = !isOpen"
@@ -22,7 +26,7 @@
                 <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95"
                     enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75"
                     leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-                    <div ref="target" v-if="isOpen"
+                    <div v-if="isOpen"
                         :class="['absolute z-10 w-[241px] bg-white-400 shadow-[0px_0px_23.7px_0px_rgba(0,0,0,0.25)] rounded-[8px] py-[4px]', user.data ? 'mt-[230px] ml-[-77px]' : 'mt-[150px] ml-[-3px]']">
                         <button v-for="(item, index) in (user.data?.id ? privateItems : publicItems)" :key="index"
                             @click="item.onClick"
@@ -99,9 +103,6 @@ const publicItems = [
         }, isRed: true
     }
 ];
-
-// OUTSIDE
-
 </script>
 
 <style scoped></style>

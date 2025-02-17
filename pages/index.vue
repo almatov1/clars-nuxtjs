@@ -1,14 +1,23 @@
 <template>
   <div>
-    <div class="flex flex-wrap gap-[12px]">
-      <ButtonComponent v-for="(item, index) in CATEGORIES" :key="index" :onClick="() => {
-        if (item === category) category = undefined;
-        else category = item;
-      }" :placeholder="item" padding component :bg="category === item ? 'bg-blue-400' : 'bg-pale-400'"
-        :text="category === item ? 'text-white-950' : 'text-black-500'">
-        <component :is="icons[index]" :stroke="category === item ? MAIN_COLOR.WHITE : MAIN_COLOR.DARK_BLACK" />
-      </ButtonComponent>
-    </div>
+    <ClientOnly>
+      <VueHorizontal :ref="horizontal">
+        <ButtonComponent v-for="(item, index) in CATEGORIES" :key="index" :onClick="() => {
+          if (item === category) category = undefined;
+          else category = item;
+        }" :placeholder="item" padding component :bg="category === item ? 'bg-blue-400' : 'bg-pale-400'"
+          :text="category === item ? 'text-white-950' : 'text-black-500'" class="mr-[12px]">
+          <component :is="icons[index]" :stroke="category === item ? MAIN_COLOR.WHITE : MAIN_COLOR.DARK_BLACK" />
+        </ButtonComponent>
+
+        <template v-slot:btn-prev>
+          <img :src="ArrowLeft" />
+        </template>
+        <template v-slot:btn-next>
+          <img :src="ArrowRight" />
+        </template>
+      </VueHorizontal>
+    </ClientOnly>
     <div class="pt-[24px] pb-[16px] text-[32px] font-medium text-black-500">{{ category ?? 'Все категории' }}</div>
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-[12px]">
@@ -53,6 +62,11 @@ import NailsIcon from '~/src/core/assets/image/category/nails.svg?component';
 import ScissorsIcon from '~/src/core/assets/image/category/scissors.svg?component';
 import TattooIcon from '~/src/core/assets/image/category/tattoo.svg?component';
 import { MAIN_COLOR } from '~/src/core/config/template';
+import ArrowRight from '~/src/core/assets/image/booking/arrow-right.svg?inline';
+import ArrowLeft from '~/src/core/assets/image/booking/arrow-left.svg?inline';
+// @ts-ignore
+import VueHorizontal from "vue-horizontal";
+
 definePageMeta({
   layout: 'default'
 })
@@ -88,6 +102,11 @@ const onLoadMore = async () => {
   catalogSearch.setPage((catalogSearch.data?.page ?? 1) + 1);
   await catalog.get(true);
 }
+
+// SCROLL
+const horizontal = ref<any>();
+const scrollLeft = (e: any) => { horizontal.value.prev(e) };
+const scrollRight = (e: any) => { horizontal.value.next(e) };
 </script>
 
 <style></style>

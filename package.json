@@ -20,6 +20,7 @@
     "pinia": "^2.3.1",
     "vue": "latest",
     "vue-final-modal": "^4.5.5",
+    "vue-horizontal": "^1.0.2",
     "vue-router": "latest",
     "vue3-apexcharts": "^1.8.0"
   },

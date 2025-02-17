@@ -10,7 +10,9 @@
         </FileInputComponent>
         <div v-if="company.data?.works.length ?? 0 > 0" class="flex flex-wrap gap-[8px]">
             <div v-for="(item, index) in company.data?.works" :key="index" class="relative w-[72px] h-[72px]">
-                <img :src="`${STORAGE}/${item.picture}`" width="72" height="72" class="rounded-[8px]" />
+                <div :style="{ backgroundImage: `url(${STORAGE}/${item.picture})` }"
+                    class="w-[72px] h-[72px] rounded-[8px] bg-cover bg-center">
+                </div>
                 <button @click="() => onDelete(item.id)" class="absolute top-0 right-0 p-[4px]">
                     <img :src="DeleteIcon" width="16" />
                 </button>

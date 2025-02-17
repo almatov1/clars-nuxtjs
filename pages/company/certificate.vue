@@ -16,18 +16,21 @@
     </div>
   </div>
 
-  <ModalComponent :modal-id="modalController" @on-hide="() => vfm.close(modalController)" title="Отправить сертификат">
+  <ModalComponent :modal-id="modalController" @on-hide="() => vfm.close(modalController)"
+    :title="`Скидка ${selectedProcent}%`">
     <form @submit.prevent="onCertificate" class="flex flex-col gap-[24px]">
       <div class="flex flex-col gap-[12px]">
-        <div class="text-black-500">Процент</div>
-        <InputComponent placeholder="Введите процент" v-model="selectedProcent" disabled />
-      </div>
-      <div class="flex flex-col gap-[12px]">
         <div class="text-black-500">Номер телефона</div>
-        <InputComponent placeholder="Введите телефон получателя" v-model.trim="telephone" required telephone />
+        <div>
+          <InputComponent placeholder="Введите телефон получателя" v-model.trim="telephone" required telephone
+            :roundedOnlyTop="recipient !== null" />
+          <div v-if="recipient" class="h-[48px] bg-blue-400 text-white-950 flex items-center px-[16px] rounded-b-[8px]">
+            {{ recipient.forename }}{{ recipient.surname ? ` ${recipient.surname}` : '' }}
+          </div>
+        </div>
       </div>
       <div class="flex justify-end">
-        <ButtonComponent class="w-[102px]" placeholder="Отправить" type="submit" />
+        <ButtonComponent class="w-[102px]" placeholder="Добавить" type="submit" bg="bg-green-400" />
       </div>
     </form>
   </ModalComponent>
@@ -42,6 +45,8 @@ import ModalComponent from '~/src/component/shared/ModalComponent.vue';
 import CertificateIcon from '~/src/core/assets/image/company/certificate.svg?inline';
 import { AddCertificateService } from '~/src/module/certificate/service/AddCertificateService';
 import { ReloadCompanyService } from '~/src/module/company/service/ReloadCompanyService';
+import type { UserModel } from '~/src/module/user/model/UserModel';
+import { GetUserByTelephoneService } from '~/src/module/user/service/GetUserByTelephoneService';
 definePageMeta({
   layout: 'default',
   middleware: ['private', 'company']
@@ -55,17 +60,34 @@ const procents = [
 // MODAL
 const selectedProcent = ref(procents[0].value.toString());
 const telephone = ref('');
+const recipient = ref<UserModel | null>(null);
 const vfm = useVfm();
 const modalController = Symbol('certificateModal');
 const onCertificate = async () => {
+  if (!recipient.value) {
+    push.error('Номер телефона не найден');
+    return;
+  }
+
   const result = await AddCertificateService(telephone.value.replace(/\D/g, ''), Number(selectedProcent.value));
   if (result) {
     await ReloadCompanyService();
-    telephone.value = '';
     push.success("Сертификат успешно отправлен");
     vfm.close(modalController);
+    telephone.value = '';
+    recipient.value = null;
   }
 }
+watch(() => telephone.value, async (elem) => {
+  if (elem && elem.length === 14) {
+    const result = await GetUserByTelephoneService(elem.replace(/\D/g, ''));
+    if (result) recipient.value = result;
+    else recipient.value = null;
+    return;
+  }
+
+  recipient.value = null;
+});
 </script>
 
 <style></style>

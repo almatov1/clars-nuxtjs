@@ -1,11 +1,15 @@
 <template>
     <div>
         <button v-if="intros[0]" @click="() => showImg(0)" class="w-full">
-            <img :src="intros[0].src" class="rounded-[8px] w-full" />
+            <div :style="{ backgroundImage: `url(${intros[0].src})` }"
+                class="w-full h-[482px] rounded-[8px] bg-cover bg-center">
+            </div>
         </button>
         <div v-if="intros.slice(1).length > 0" class="flex flex-wrap gap-[12px] pt-[6px]">
             <button v-for="(image, index) in intros.slice(1)" :key="index" @click="() => showImg(index + 1)">
-                <img :src="image.src" width="80" class="rounded-[8px]" />
+                <div :style="{ backgroundImage: `url(${image.src})` }"
+                    class="w-[80px] h-[80px] rounded-[8px] bg-cover bg-center">
+                </div>
             </button>
         </div>
     </div>

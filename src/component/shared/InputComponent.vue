@@ -5,7 +5,7 @@
         </div>
         <input v-model="localValue" :type="type ?? 'text'" :placeholder="placeholder" :inputmode="inputmode"
             :pattern="pattern" :minlength="minlength" :maxlength="maxlength" :disabled="disabled"
-            :class="['block w-full py-[12px] px-[16px] text-[16px] font-normal placeholder-black-400 text-black-500 border-none focus:ring-0 focus:outline-none border-0 bg-pale-400 rounded-[8px]', icon ? 'ps-[44px]' : '', disabled && 'cursor-not-allowed']"
+            :class="['block w-full py-[12px] px-[16px] text-[16px] font-normal placeholder-black-400 text-black-500 border-none focus:ring-0 focus:outline-none border-0 bg-pale-400', icon ? 'ps-[44px]' : '', disabled && 'cursor-not-allowed', roundedOnlyTop ? 'rounded-t-[8px]' : 'rounded-[8px]']"
             :autocapitalize="capitalize ? 'sentences' : 'none'" :required="required" />
         <div v-if="note" class="absolute z-10 top-[12px] right-[20px]">
             <slot></slot>
@@ -30,7 +30,8 @@ export default {
         number: { type: Boolean },
         minlength: { type: Number, default: 1 },
         maxlength: { type: Number, default: 2000 },
-        note: { type: Boolean }
+        note: { type: Boolean },
+        roundedOnlyTop: { type: Boolean }
     },
     data() {
         return {

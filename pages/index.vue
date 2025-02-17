@@ -26,7 +26,7 @@
       <button @click="() => navigateTo(`${COMPANY_ROUTE.COMPANY}${item.id}`)" v-for="(item, index) in catalog.data"
         :key="index" class="flex flex-col items-start">
         <div :style="{ backgroundImage: `url(${STORAGE}/${item.intros[0].picture})` }"
-          class="w-[100%] aspect-square rounded-[8px] bg-cover bg-center"></div>
+          class="w-[100%] h-[203px] rounded-[8px] bg-cover bg-center"></div>
         <div class="pt-[12px] uppercase font-medium text-black-500">{{ item.name }}</div>
         <div class="text-[14px] text-black-400">{{ item.address }}</div>
       </button>

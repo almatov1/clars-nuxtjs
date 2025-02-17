@@ -26,12 +26,12 @@
           <div class="flex items-center justify-between">
             <div class="text-[14px] text-black-500">Салон</div>
             <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-            <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.company.name }}</div>
+            <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.company.name }}</div>
           </div>
           <div class="flex items-center justify-between">
             <div class="text-[14px] text-black-500">Услуга</div>
             <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-            <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.service.name }}</div>
+            <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.service.name }}</div>
           </div>
           <div class="flex items-center justify-between">
             <div class="text-[14px] text-black-500">Начало</div>
@@ -56,18 +56,19 @@
           <div class="flex items-center justify-between">
             <div class="text-[14px] text-black-500">Специалист</div>
             <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-            <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.master.forename }} {{ item.master.surname }}
+            <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.master.forename }} {{
+              item.master.surname }}
             </div>
           </div>
           <div class="flex items-center justify-between">
             <div class="text-[14px] text-black-500">Адрес</div>
             <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-            <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.company.address }}</div>
+            <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.company.address }}</div>
           </div>
           <div class="flex items-center justify-between">
             <div class="text-[14px] text-black-500">Комментарий</div>
             <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-            <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.note ?? 'Нет' }}</div>
+            <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.note ?? 'Нет' }}</div>
           </div>
         </div>
         <ButtonComponent v-if="orderSearch.data?.status === ORDER_STATUS.ACTIVE" :onClick="() => onCancel(item.id)"

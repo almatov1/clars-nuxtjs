@@ -33,7 +33,7 @@
             <div class="flex items-center justify-between">
               <div class="text-[14px] text-black-500">Клиент</div>
               <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-              <div class="text-[14px] text-black-400 flex-shrink-0">
+              <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">
                 {{ item.client.forename }}{{ item.client.surname ? ` ${item.client.surname}` : '' }}
               </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="flex items-center justify-between">
               <div class="text-[14px] text-black-500">Услуга</div>
               <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-              <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.service.name }}</div>
+              <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.service.name }}</div>
             </div>
             <div class="flex items-center justify-between">
               <div class="text-[14px] text-black-500">Начало</div>
@@ -72,13 +72,14 @@
             <div class="flex items-center justify-between">
               <div class="text-[14px] text-black-500">Специалист</div>
               <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-              <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.master.forename }} {{ item.master.surname }}
+              <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.master.forename }} {{
+                item.master.surname }}
               </div>
             </div>
             <div class="flex items-center justify-between">
               <div class="text-[14px] text-black-500">Комментарий</div>
               <div class="border-b-[1px] w-full mx-[8px] border-black-400 border-dashed"></div>
-              <div class="text-[14px] text-black-400 flex-shrink-0">{{ item.note ?? 'Нет' }}</div>
+              <div class="text-[14px] text-black-400 flex-shrink-0 max-w-[160px]">{{ item.note ?? 'Нет' }}</div>
             </div>
           </div>
           <ButtonComponent v-if="companyOrderSearch.data?.status === ORDER_STATUS.ACTIVE"

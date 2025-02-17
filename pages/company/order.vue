@@ -2,11 +2,16 @@
   <div>
     <BlockHeaderComponent title="Записи" />
     <div class="flex flex-col gap-[16px]">
-      <div class="flex gap-[8px]">
-        <button v-for="(item, index) in statuses" :key="index" @click="() => onStatus(item.status)"
-          :class="['font-medium rounded-[8px] h-[36px] items-center justify-center px-[24px]', companyOrderSearch.data?.status === item.status ? 'bg-blue-400 text-white-950' : 'bg-pale-400 text-black-500']">
-          {{ item.label }}
-        </button>
+      <div class="flex gap-[24px]">
+        <div class="flex gap-[8px]">
+          <button v-for="(item, index) in statuses" :key="index" @click="() => onStatus(item.status)"
+            :class="['font-medium rounded-[8px] h-[36px] items-center justify-center px-[24px]', companyOrderSearch.data?.status === item.status ? 'bg-blue-400 text-white-950' : 'bg-pale-400 text-black-500']">
+            {{ item.label }}
+          </button>
+        </div>
+        <div class="h-[36px] w-[1px] bg-pale-500"></div>
+        <SelectComponent v-model="selectedMaster" :elements="company.data?.masters ?? []" placeholder="Все специалисты"
+          :height="36" :border="'border-pale-500'" bg="bg-white-400" :px="12" isMaster />
       </div>
       <div class="grid grid-cols-4 gap-[24px]">
         <div v-for="(item, index) in companyOrder.data" :key="index"
@@ -89,9 +94,12 @@
 import BlockHeaderComponent from '~/src/component/company/BlockHeaderComponent.vue';
 import ButtonComponent from '~/src/component/shared/ButtonComponent.vue';
 import LoadMoreComponent from '~/src/component/shared/LoadMoreComponent.vue';
+import SelectComponent from '~/src/component/shared/SelectComponent.vue';
 import { ORDER_STATUS } from '~/src/core/config/shared';
 import execPriceMask from '~/src/core/util/priceMask';
 import execTelephoneMask from '~/src/core/util/telephoneMask';
+import type { MasterModel } from '~/src/module/company/model/CompanyModel';
+import { useCompanyStore } from '~/src/module/company/store/company';
 import { CancelCompanyOrderService } from '~/src/module/companyOrder/service/CancelCompanyOrderService';
 import { useCompanyOrderStore } from '~/src/module/companyOrder/store/companyOrder';
 import { useCompanyOrderSearchStore } from '~/src/module/companyOrder/store/companyOrderSearch';
@@ -101,6 +109,7 @@ definePageMeta({
 })
 
 // INIT
+const company = useCompanyStore();
 const companyOrder = useCompanyOrderStore();
 const companyOrderSearch = useCompanyOrderSearchStore();
 if (!companyOrderSearch.data) companyOrderSearch.setStatus(ORDER_STATUS.ACTIVE);
@@ -108,7 +117,7 @@ if (!companyOrder.data) companyOrder.get();
 
 // STATUS
 const onStatus = (status: string) => {
-  companyOrderSearch.reset();
+  companyOrderSearch.setPage(undefined);
   companyOrderSearch.setStatus(status);
   companyOrder.get();
 }
@@ -119,6 +128,15 @@ const statuses = [
 
 // CANCEL
 const onCancel = async (id: number) => { await CancelCompanyOrderService(id) }
+
+// MASTER
+const selectedMaster = ref<MasterModel | undefined>(undefined);
+watch(() => selectedMaster.value, (value) => {
+  console.log(value)
+  companyOrderSearch.setPage(undefined);
+  companyOrderSearch.setMasterId(value ? value.id : undefined);
+  companyOrder.get();
+});
 
 // LOAD MORE
 const onLoadMore = async () => {

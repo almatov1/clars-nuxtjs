@@ -1,7 +1,7 @@
 <template>
     <div>
         <button :type="props.type ?? 'button'" @click="handleClick"
-            :class="['w-full text-[16px] font-medium rounded-[8px] flex justify-center items-center', bg ?? 'bg-blue-400', text ?? 'text-white-950', borderColor ? `${borderColor} border-[1px] py-[11px]` : 'py-[12px]', padding && 'px-[16px]']">
+            :class="['w-full truncate text-[16px] font-medium rounded-[8px] flex justify-center items-center', bg ?? 'bg-blue-400', text ?? 'text-white-950', borderColor ? `${borderColor} border-[1px] py-[11px]` : 'py-[12px]', padding && 'px-[16px]']">
             <div v-if="component" class="pr-[8px]">
                 <slot></slot>
             </div>

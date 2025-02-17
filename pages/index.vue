@@ -6,7 +6,7 @@
         else category = item;
       }" :placeholder="item" padding component :bg="category === item ? 'bg-blue-400' : 'bg-pale-400'"
         :text="category === item ? 'text-white-950' : 'text-black-500'">
-        <component :is="icons[index]" />
+        <component :is="icons[index]" :stroke="category === item ? MAIN_COLOR.WHITE : MAIN_COLOR.DARK_BLACK" />
       </ButtonComponent>
     </div>
     <div class="pt-[24px] pb-[16px] text-[32px] font-medium text-black-500">{{ category ?? 'Все категории' }}</div>
@@ -38,14 +38,21 @@
 <script lang="ts" setup>
 import ButtonComponent from '~/src/component/shared/ButtonComponent.vue';
 import { CATEGORIES, ORDER_BY_LIST, REGIONS, STORAGE } from '~/src/core/config/shared';
-import HairbrushIcon from '~/src/core/assets/image/category/hairbrush.svg?component';
-import BrushIcon from '~/src/core/assets/image/category/brush.svg?component';
 import { useCatalogSearchStore } from '~/src/module/catalog/store/catalogSearch';
 import { useCatalogStore } from '~/src/module/catalog/store/catalog';
 import SelectComponent from '~/src/component/shared/SelectComponent.vue';
 import SortIcon from '~/src/core/assets/image/home/sort.svg?inline';
 import { COMPANY_ROUTE } from '~/src/core/config/route';
 import LoadMoreComponent from '~/src/component/shared/LoadMoreComponent.vue';
+import BladeIcon from '~/src/core/assets/image/category/blade.svg?component';
+import BodyIcon from '~/src/core/assets/image/category/body.svg?component';
+import BrowIcon from '~/src/core/assets/image/category/brow.svg?component';
+import BrushIcon from '~/src/core/assets/image/category/brush.svg?component';
+import CosmeticIcon from '~/src/core/assets/image/category/cosmetic.svg?component';
+import NailsIcon from '~/src/core/assets/image/category/nails.svg?component';
+import ScissorsIcon from '~/src/core/assets/image/category/scissors.svg?component';
+import TattooIcon from '~/src/core/assets/image/category/tattoo.svg?component';
+import { MAIN_COLOR } from '~/src/core/config/template';
 definePageMeta({
   layout: 'default'
 })
@@ -74,7 +81,7 @@ watch(() => orderBy.value, (value) => {
   catalogSearch.setOrderBy(value);
   catalog.get();
 });
-const icons = [HairbrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon, BrushIcon];
+const icons = [ScissorsIcon, NailsIcon, BodyIcon, BrushIcon, BladeIcon, CosmeticIcon, TattooIcon, BrowIcon];
 
 // LOAD MORE
 const onLoadMore = async () => {

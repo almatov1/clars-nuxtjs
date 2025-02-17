@@ -5,4 +5,5 @@ export interface GetOrderState {
 export interface GetOrderModel {
     page?: number
     status?: string
+    masterId?: number
 };

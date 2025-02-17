@@ -7,7 +7,7 @@
                 {{ placeholder }}
             </option>
             <option v-for="(item, index) in elements" :key="index" :value="item">
-                {{ item }}
+                {{ isMaster ? `${item.forename} ${item.surname}` : item }}
             </option>
         </select>
         <ArrowDownIcon
@@ -29,6 +29,7 @@ const props = defineProps<{
     icon?: string;
     height?: number;
     px?: number;
+    isMaster?: boolean;
 }>();
 
 const emit = defineEmits(['update:modelValue']);

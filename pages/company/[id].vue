@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="flex gap-[6px] pb-[24px]">
-      <div class="text-black-400">Главная / {{ company?.category }} / </div>
+    <div class="flex gap-[6px] pb-[24px] text-black-400">
+      <button @click="$router.back()">Главная</button>
+      <div>/</div>
+      <button @click="$router.back()">{{ company?.category }}</button>
+      <div>/</div>
       <div class="text-black-500 uppercase">{{ company?.name }}</div>
     </div>
     <div class="grid grid-cols-[1fr_411px] gap-[24px] items-start">

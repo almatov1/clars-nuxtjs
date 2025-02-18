@@ -1,23 +1,19 @@
 <template>
     <div class="mb-[24px]">
         <div class="max-w-[1440px] mx-auto px-[80px] py-[16px] flex justify-between items-center">
-            <button @click="() => navigateTo(DEFAULT_ROUTE.HOME)">
+            <NuxtLink :to="DEFAULT_ROUTE.HOME">
                 <img :src="Logotype" />
-            </button>
+            </NuxtLink>
             <div ref="target" class="flex items-center gap-[16px]">
-                <button v-if="!company.data" @click="() => {
-                    navigateTo(COMPANY_ROUTE.CREATE);
-                    isOpen = false;
-                }" class="flex items-center gap-[8px] bg-red-400 h-[32px] px-[12px] rounded-[8px]">
+                <NuxtLink v-if="!company.data" :to="COMPANY_ROUTE.CREATE" @click="() => isOpen = false"
+                    class="flex items-center gap-[8px] bg-red-400 h-[32px] px-[12px] rounded-[8px]">
                     <img :src="PlusIcon" />
                     <div class="font-medium text-[16px] text-white-950">Создать бизнес</div>
-                </button>
-                <button v-else @click="() => {
-                    navigateTo(COMPANY_ROUTE.CABINET);
-                    isOpen = false;
-                }" class="text-[16px] font-normal text-black-500">
+                </NuxtLink>
+                <NuxtLink v-else :to="COMPANY_ROUTE.CABINET" @click="() => isOpen = false"
+                    class="text-[16px] font-normal text-black-500">
                     Мой бизнес
-                </button>
+                </NuxtLink>
                 <button @click="isOpen = !isOpen"
                     class="flex items-center gap-[8px] border-pale-500 border-[1px] h-[32px] px-[12px] rounded-[8px]">
                     <img :src="ListIcon" />
@@ -51,6 +47,7 @@ import { LogoutService } from "~/src/module/user/service/LogoutService";
 import { useUserStore } from "~/src/module/user/store/user";
 import { useCompanyStore } from "~/src/module/company/store/company";
 import { onClickOutside } from '@vueuse/core'
+import { NuxtLink } from "#components";
 const target = ref(null);
 const user = useUserStore();
 const company = useCompanyStore();

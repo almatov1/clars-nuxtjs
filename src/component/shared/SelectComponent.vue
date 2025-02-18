@@ -2,7 +2,7 @@
     <div class="relative">
         <img v-if="icon" :src="icon" class="absolute top-[7px] left-[12px]" />
         <select v-model="internalModel"
-            :class="[height ? `h-[${height}px]` : 'h-[48px]', 'focus:ring-0 focus:outline-none border-0 rounded-[8px] w-full text-[16px] font-normal truncate appearance-none', text ? text : !internalModel ? 'text-black-400' : 'text-black-500', bg ?? 'bg-pale-400', border ? `border-[1px] ${border}` : '', px ? `px-[${px}px] pr-[36px]` : 'px-[16px] pr-[40px]', icon && 'pl-[36px]']">
+            :class="[height ? `h-[${height}px]` : 'h-[48px]', 'cursor-pointer focus:ring-0 focus:outline-none border-0 rounded-[8px] w-full text-[16px] font-normal truncate appearance-none', text ? text : !internalModel ? 'text-black-400' : 'text-black-500', bg ?? 'bg-pale-400', border ? `border-[1px] ${border}` : '', px ? `px-[${px}px] pr-[36px]` : 'px-[16px] pr-[40px]', icon && 'pl-[36px]']">
             <option :value="undefined">
                 {{ placeholder }}
             </option>

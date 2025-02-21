@@ -20,6 +20,7 @@ export default {
           950: MAIN_COLOR.WHITE
         },
         pale: {
+          200: MAIN_COLOR.LIGHT_PALE,
           400: MAIN_COLOR.PALE,
           500: MAIN_COLOR.DARK_PALE
         },
@@ -39,6 +40,7 @@ export default {
           400: MAIN_COLOR.ORANGE
         },
         black: {
+          200: MAIN_COLOR.LIGHTNESS_BLACK,
           400: MAIN_COLOR.LIGHT_BLACK,
           500: MAIN_COLOR.DARK_BLACK,
           950: MAIN_COLOR.BLACK

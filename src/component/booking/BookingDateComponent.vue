@@ -20,8 +20,13 @@
                     </div>
                     <div v-for="n in firstDayOffset" :key="n"></div>
                     <button v-for="day in daysInMonth" :key="day"
-                        @click="() => selectDate(formatDate(currentYear, currentMonth, day))"
-                        :class="['rounded-[8px] h-[36px]', selectedDay === day ? 'text-white-950 bg-blue-400' : 'bg-pale-400 text-black-500']">
+                        @click="() => isPastDate(formatDate(currentYear, currentMonth, day)) ? null : selectDate(formatDate(currentYear, currentMonth, day))"
+                        :class="['rounded-[8px] h-[36px]', selectedDay === day
+                            ? 'text-white-950 bg-blue-400'
+                            : isPastDate(formatDate(currentYear, currentMonth, day))
+                                ? 'bg-pale-200 text-black-200 cursor-not-allowed'
+                                : 'bg-pale-400 text-black-500']"
+                        :disabled="isPastDate(formatDate(currentYear, currentMonth, day))">
                         {{ day }}
                     </button>
                 </div>
@@ -78,6 +83,7 @@ const prevMonth = () => {
     }
 
     selectedDay.value = null;
+    booking.setTimes(undefined);
     booking.setDate(undefined);
     booking.setTime(undefined);
 };
@@ -90,6 +96,7 @@ const nextMonth = () => {
     }
 
     selectedDay.value = null;
+    booking.setTimes(undefined);
     booking.setDate(undefined);
     booking.setTime(undefined);
 };
@@ -99,17 +106,12 @@ const formatDate = (year: number, month: number, day: number): Date => {
 
 // SELECT
 const selectedDay = ref<number | null>(booking.data?.date ? booking.data.date.getDate() : null);
-const selectDate = async (date: Date) => {
+const isPastDate = (date: Date): boolean => {
     const now = new Date();
     const selectedDate = new Date(date);
-    if (selectedDate < new Date(now.getFullYear(), now.getMonth(), now.getDate())) {
-        selectedDay.value = null;
-        booking.setDate(undefined);
-        booking.setTime(undefined);
-        booking.setTimes(undefined);
-        return;
-    }
-
+    return selectedDate < new Date(now.getFullYear(), now.getMonth(), now.getDate())
+};
+const selectDate = async (date: Date) => {
     booking.setDate(date);
     const result = await GetTimesService(booking.data?.company?.id!, booking.data?.masterId!, booking.data?.date!);
     if (result) {

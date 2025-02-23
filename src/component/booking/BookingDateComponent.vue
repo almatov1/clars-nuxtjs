@@ -33,7 +33,7 @@
             </div>
             <div class="rounded-[8px] border-[1px] border-pale-500 p-[24px] flex flex-col gap-[24px]">
                 <div class="text-[20px] font-medium text-black-500 text-center">Выберите время</div>
-                <div v-if="booking.data?.times === undefined" class="">
+                <div v-if="booking.data?.times === undefined || booking.data.times.length === 0" class="">
                     Свободные окошки не найдены
                 </div>
                 <div v-else class="grid grid-cols-4 gap-[16px]">

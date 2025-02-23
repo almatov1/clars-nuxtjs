@@ -1,7 +1,7 @@
 <template>
     <div class="grid grid-cols-2 gap-[16px]">
         <ButtonComponent :onClick="() => $router.back()" placeholder="Назад" bg="bg-pale-400" text="text-blue-400" />
-        <ButtonComponent :onClick="onNext" placeholder="Далее" />
+        <ButtonComponent :onClick="onNext" :placeholder="isLast ? 'Подтвердить' : 'Далее'" />
     </div>
 </template>
 
@@ -17,6 +17,7 @@ const props = defineProps<{
     stages: string[];
     stage: string;
     endStage: string;
+    isLast: boolean;
 }>();
 const booking = useBookingStore();
 const onNext = async () => {

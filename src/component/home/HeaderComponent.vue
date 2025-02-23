@@ -1,8 +1,9 @@
 <template>
     <div class="mb-[24px]">
-        <div class="max-w-[1440px] mx-auto px-[80px] py-[16px] flex justify-between items-center">
+        <div
+            :class="['max-w-[1440px] mx-auto px-[80px] py-[16px] flex justify-between items-center rounded-b-[16px]', COMPANY_CABINET_ROUTES.includes(route.path) ? 'bg-blue-400' : 'border-b-[1px] border-pale-500']">
             <NuxtLink :to="DEFAULT_ROUTE.HOME">
-                <img :src="Logotype" />
+                <img :src="COMPANY_CABINET_ROUTES.includes(route.path) ? LogotypeWhite : Logotype" />
             </NuxtLink>
             <div ref="target" class="flex items-center gap-[16px]">
                 <NuxtLink v-if="!company.data" :to="COMPANY_ROUTE.CREATE" @click="() => isOpen = false"
@@ -11,13 +12,13 @@
                     <div class="font-medium text-[16px] text-white-950">Создать бизнес</div>
                 </NuxtLink>
                 <NuxtLink v-else :to="COMPANY_ROUTE.CABINET" @click="() => isOpen = false"
-                    class="text-[16px] font-normal text-black-500">
+                    :class="['text-[16px] font-normal', COMPANY_CABINET_ROUTES.includes(route.path) ? 'text-white-950' : 'text-black-500']">
                     Мой бизнес
                 </NuxtLink>
                 <button @click="isOpen = !isOpen"
                     class="flex items-center gap-[8px] border-pale-500 border-[1px] h-[32px] px-[12px] rounded-[8px]">
-                    <img :src="ListIcon" />
-                    <img :src="UserIcon" />
+                    <img :src="COMPANY_CABINET_ROUTES.includes(route.path) ? ListWhiteIcon : ListIcon" />
+                    <img :src="COMPANY_CABINET_ROUTES.includes(route.path) ? UserWhiteIcon : UserIcon" />
                 </button>
                 <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95"
                     enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75"
@@ -33,16 +34,18 @@
                 </transition>
             </div>
         </div>
-        <div class="w-full h-[1px] bg-pale-500"></div>
     </div>
 </template>
 
 <script setup lang="ts">
 import Logotype from "../../core/assets/image/home/logotype.svg?inline";
+import LogotypeWhite from "../../core/assets/image/home/logotype-white.svg?inline";
 import PlusIcon from "../../core/assets/image/home/plus.svg?inline";
 import ListIcon from "../../core/assets/image/home/list.svg?inline";
+import ListWhiteIcon from "../../core/assets/image/home/list-white.svg?inline";
 import UserIcon from "../../core/assets/image/home/user.svg?inline";
-import { ACCOUNT_ROUTE, COMPANY_ROUTE, DEFAULT_ROUTE, ORDER_ROUTE } from "~/src/core/config/route";
+import UserWhiteIcon from "../../core/assets/image/home/user-white.svg?inline";
+import { ACCOUNT_ROUTE, COMPANY_CABINET_ROUTES, COMPANY_ROUTE, DEFAULT_ROUTE, ORDER_ROUTE } from "~/src/core/config/route";
 import { LogoutService } from "~/src/module/user/service/LogoutService";
 import { useUserStore } from "~/src/module/user/store/user";
 import { useCompanyStore } from "~/src/module/company/store/company";
@@ -52,6 +55,7 @@ const target = ref(null);
 const user = useUserStore();
 const company = useCompanyStore();
 onClickOutside(target, (event) => isOpen.value = false);
+const route = useRoute();
 
 // MENU
 const isOpen = ref(false);

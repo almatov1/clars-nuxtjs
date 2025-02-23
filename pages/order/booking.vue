@@ -11,7 +11,8 @@
           <BookingDateComponent v-if="stage === stages[1]" />
           <BookingConfirmComponent v-if="stage === stages[2]" />
           <BookingDataComponent v-if="stage === stages[2]" />
-          <BookingNavigationComponent :stages="stages" :stage="stage" :endStage="endStage" />
+          <BookingNavigationComponent :stages="stages" :stage="stage" :endStage="endStage"
+            :isLast="stage === stages[2]" />
         </div>
         <div v-else class="flex flex-col gap-[32px]">
           <BookedComponent />

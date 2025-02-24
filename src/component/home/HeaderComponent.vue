@@ -1,7 +1,7 @@
 <template>
-    <div class="mb-[24px]">
-        <div
-            :class="['max-w-[1440px] mx-auto px-[80px] py-[16px] flex justify-between items-center rounded-b-[16px]', COMPANY_CABINET_ROUTES.includes(route.path) ? 'bg-blue-400' : 'border-b-[1px] border-pale-500']">
+    <div
+        :class="['mb-[24px] w-full rounded-b-[16px]', COMPANY_CABINET_ROUTES.includes(route.path) ? 'bg-blue-400' : 'border-b-[1px] border-pale-500']">
+        <div class="max-w-[1440px] mx-auto px-[80px] py-[16px] flex justify-between items-center">
             <NuxtLink :to="DEFAULT_ROUTE.HOME">
                 <img :src="COMPANY_CABINET_ROUTES.includes(route.path) ? LogotypeWhite : Logotype" />
             </NuxtLink>

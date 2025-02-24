@@ -1,7 +1,6 @@
 <template>
-    <div class="mt-[48px]">
-        <div
-            class="max-w-[1440px] mx-auto h-[56px] px-[80px] flex items-center justify-between border-t-[1px] border-pale-500">
+    <div class="mt-[48px] w-full border-t-[1px] border-pale-500">
+        <div class="max-w-[1440px] mx-auto h-[56px] px-[80px] flex items-center justify-between">
             <div class="flex items-center gap-[32px]">
                 <div class="flex items-center gap-[12px]">
                     <a v-for="(item, index) in icons" :key="index" :href="item.href" target="_blank">
